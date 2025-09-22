@@ -25,11 +25,6 @@ export class AuthService {
     return !!this.access$.value;
   }
 
-  authHeaders(): { headers: HttpHeaders } {
-    const jwtToken = this.getAccessToken();
-    return { headers: new HttpHeaders(jwtToken ? { Authorization: `Bearer ${jwtToken}` } : {}) };
-  }
-
   login(body: LoginRequest): Observable<LoginResponse> {
     return this.httpClient
       .post<LoginResponse>(`${API_BASE_URL}/auth/login`, body, { withCredentials: true })

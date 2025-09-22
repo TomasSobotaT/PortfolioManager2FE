@@ -7,20 +7,20 @@ import { routes } from './app.routes';
 import { isDevMode } from '@angular/core';
 import { provideEffects } from '@ngrx/effects';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { authInterceptor } from './core/http/auth.interceptor';
-import { refreshInterceptor } from './core/http/refresh.interceptor';
+import { authInterceptor } from './core/interceptors/auth.interceptor';
+import { refreshInterceptor } from './core/interceptors/refresh.interceptor';
+import { environment } from '../environments/environment';
+import { API_BASE_URL } from './core/config/tokens';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    { provide: API_BASE_URL, useValue: environment.apiBaseUrl },
     provideZoneChangeDetection({ eventCoalescing: true }),
-
     provideHttpClient(withInterceptors([authInterceptor, refreshInterceptor])),
-
     provideRouter(routes),
     provideStore(),
     provideEffects(),
     provideRouterStore(),
-
-    isDevMode() ? provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }) : [],
+    isDevMode() ? provideStoreDevtools({ maxAge: 25 }) : [],
   ],
 };

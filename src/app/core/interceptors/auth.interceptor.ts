@@ -1,6 +1,6 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { AuthService } from '../services/auth-service';
+import { AuthService } from 'src/app/shared/services/auth-service';
 
 const API_BASE_URL = 'http://localhost:3000';
 
